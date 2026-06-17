@@ -1,11 +1,12 @@
 from pathlib import Path
+from models.file_info import FileInfo
 
 
-class Scanner:
+class DirectoryScanner:
     def __init__(self, directory_path):
         self.directory_path = Path(directory_path)
 
-    def scan_directory(self) -> list[dict]:
+    def scan(self) -> list[dict]:
         """
         Scan the directory and return metadata for all visible files.
 
@@ -35,14 +36,12 @@ class Scanner:
                 continue
             try:
                 if item.is_file():
+                    name = item.name
+                    extension = item.suffix
                     size = item.stat().st_size
+                    path = item
                     files.append(
-                        {
-                            "name": item.name,
-                            "extension": item.suffix,
-                            "size": size,
-                            "path": item,
-                        }
+                        FileInfo(name=name, extension=extension, size=size, path=path)
                     )
             except PermissionError:
                 continue
