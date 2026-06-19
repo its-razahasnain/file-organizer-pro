@@ -6,7 +6,7 @@ class DirectoryScanner:
     def __init__(self, directory_path):
         self.directory_path = Path(directory_path)
 
-    def scan(self) -> list[dict]:
+    def scan(self) -> list[FileInfo]:
         """
         Scan the directory and return metadata for all visible files.
 
